@@ -7,7 +7,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpDesignPatternsCheatsheet\\": "src"
+            "PhpDesignPatternsCheatsheet\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhpDesignPatternsCheatsheet\\Tests\\": "tests/"
         }
     }
 }
