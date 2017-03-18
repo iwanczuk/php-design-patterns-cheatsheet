@@ -45,5 +45,7 @@ class SingletonPoolTest extends TestCase
 
         $this->assertInstanceOf(SingletonPoolBarDummy::class, SingletonPoolBarDummy::getInstance());
         $this->assertSame(SingletonPoolBarDummy::getInstance(), SingletonPoolBarDummy::getInstance());
+
+        $this->assertNotSame(SingletonPoolFooDummy::getInstance(), SingletonPoolBarDummy::getInstance());
     }
 }
