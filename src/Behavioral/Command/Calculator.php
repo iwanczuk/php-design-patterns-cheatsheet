@@ -5,19 +5,25 @@ namespace PhpDesignPatternsCheatsheet\Behavioral\Command;
 class Calculator
 {
     /**
-     * @var Operation[]
+     * @var AbstractCommand[]
      */
-    private $operations;
+    private $commands;
 
     /**
      * @var Container
      */
     private $container;
 
-    public function __construct()
+    /**
+     * @var CommandFactory
+     */
+    private $commandFactory;
+
+    public function __construct(CommandFactory $commandFactory)
     {
-        $this->operations = [];
+        $this->commands = [];
         $this->container = new Container();
+        $this->commandFactory = $commandFactory;
     }
 
     /**
@@ -25,7 +31,7 @@ class Calculator
      */
     public function plus(float $value)
     {
-        $this->operations[] = new PlusCommand($this->container, $value);
+        $this->commands[] = $this->commandFactory->create(PlusCommand::class, [$this->container, $value]);
     }
 
     /**
@@ -33,7 +39,7 @@ class Calculator
      */
     public function minus(float $value)
     {
-        $this->operations[] = new MinusCommand($this->container, $value);
+        $this->commands[] = $this->commandFactory->create(MinusCommand::class, [$this->container, $value]);
     }
 
     /**
@@ -41,8 +47,8 @@ class Calculator
      */
     public function calculate(): float
     {
-        foreach ($this->operations as $operation) {
-            $operation->execute();
+        foreach ($this->commands as $command) {
+            $command->execute();
         }
 
         return $this->container->getValue();
