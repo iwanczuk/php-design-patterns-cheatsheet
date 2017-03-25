@@ -19,6 +19,9 @@ class Calculator
      */
     private $commandFactory;
 
+    /**
+     * @param CommandFactory $commandFactory
+     */
     public function __construct(CommandFactory $commandFactory)
     {
         $this->commands = [];
